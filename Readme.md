@@ -11,4 +11,4 @@ styleid -- if style is set as 7(from mapbox), you can change the styleid here, "
 
 see more on the ipynb: Tutorial(https://github.com/ni1o1/plot_map/blob/master/Tutorial_of_plot_map.ipynb)
 
-<img height="400" src="img/example.png">
+<img height="600" src="img/example.png">
