@@ -1,7 +1,7 @@
 # plot_map
 
 plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制地理图形的时候，你可以用plot_map来添加地图底图  
-When you want to plot geo object using python matplotlib.pyplot, you can use this module to generate map backgroud.  
+When you want to plot geo object using python geopandas or matplotlib.pyplot, you can use this module to generate map backgroud.  
 
 只需要用以下代码：  
 Just use the following code:  
