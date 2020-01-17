@@ -1,6 +1,5 @@
 # plot_map
 
-plot_map is a module to plot map backgroud using matplotlib.just use:  
 plot_map is a module to plot map backgroud using matplotlib. Just use the following code:  
 
     plot_map(plt,bounds,zoom = 9,style = 1)
