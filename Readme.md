@@ -8,7 +8,7 @@ Just use the following code:
 
     plot_map(plt,bounds,zoom = 9,style = 1)
 
-你可以通过改变参数"style"和"styleid"来改变底图的风格样式
+你可以通过改变参数"style"和"styleid"来改变底图的风格样式  
 You can change your map style by changing the "style" and "styleid" in the function plot_map  
 
 	bounds -- Set your plotting boundary [lon1,lat1,lon2,lat2] (wgs1984)  
