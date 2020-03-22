@@ -1,3 +1,8 @@
+# 更新 Update
+## 2020.3.22
+绘图过程增加了timeout为6s，尝试次数10次，妈妈再也不用担心plot_map画图卡很久
+add 6s timeout and maximun try 10 times
+
 # plot_map
 
 plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制地理图形的时候，你可以用plot_map来添加地图底图  
