@@ -1,7 +1,12 @@
 # 更新 Update
+## 2020.3.24
+可将下载的地图保存，下次使用时直接读取！  
+set the imgsavepath to save the tile map  
+imgsavepath -- Path to save the tile map so that you don't have to download again  
+
 ## 2020.3.22
-绘图过程增加了timeout为6s，尝试次数10次，妈妈再也不用担心plot_map画图卡很久
-add 6s timeout and maximun try 10 times
+绘图过程增加了timeout为6s，尝试次数10次，妈妈再也不用担心plot_map画图卡很久  
+add 6s timeout and maximun try 10 times  
 
 # plot_map
 
@@ -20,6 +25,8 @@ You can change your map style by changing the "style" and "styleid" in the funct
 	zoom -- The zoom level of the map  
 	style -- From 1 to 7 represent different map styles,1-6 is from openstreetmap and 7 is the mapbox    
 	styleid -- if style is set as 7(from mapbox), you can change the styleid here, "dark" or "light" or your own style  
+	imgsavepath -- Path to save the tile map so that you don't have to download again
+	printlog -- Show the log
 
 可以实现的效果：  
 example：  
