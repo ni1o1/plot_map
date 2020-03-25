@@ -1,7 +1,7 @@
 # 更新 Update
 ## 2020.3.35
-增加绘制指北针的功能plotcompass(plt)和比例尺的功能plotscale(ax)
-add the function plotcompass and plotscale, now you can plot the compass and scale on the map!
+增加绘制指北针和比例尺的功能plotscale(ax)
+add the function plotscale, now you can plot the compass and scale on the map!
 
 ## 2020.3.24
 可将下载的地图保存，下次使用时直接读取！  
@@ -37,4 +37,4 @@ example：
 <img height="600" src="img/example.png">
 
 更多信息请看：  
-see more on the ipynb: Tutorial(https://github.com/ni1o1/plot_map/blob/master/tutorial/Tutorial_of_plot_map.ipynb)
+see more in the ipynb: Tutorial(Tutorial_of_plot_map.ipynb)
