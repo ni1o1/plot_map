@@ -145,7 +145,7 @@ def plot_map(plt,bounds,zoom,style,imgsavepath = 'C:\\',printlog = False,apikey 
     x2,y2 = num2deg(x2+1, y2, zoom)
     plt.imshow(np.asarray(a),extent = (y1,y2,x1+0.00,x2+0.00))
 
-def plotscale(ax,bounds,textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1,0.1]):
+def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1,0.1],unit = "KM",style = 1):
     
     #栅格化代码
     import math
@@ -168,21 +168,47 @@ def plotscale(ax,bounds,textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1
     deltaLon = accuracy * 360 / (2 * math.pi * 6371004 * math.cos((lat1 + lat2) * math.pi / 360));
     
     #加比例尺
+    
     from shapely.geometry import Polygon
     import geopandas as gpd
-    scale = gpd.GeoDataFrame({'color':[(0,0,0),(1,1,1),(0,0,0),(1,1,1)],'geometry':
-    [Polygon([(alon,alat),(alon+deltaLon,alat),(alon+deltaLon,alat+deltaLon*0.4),(alon,alat+deltaLon*0.4)]),
-    Polygon([(alon+deltaLon,alat),(alon+2*deltaLon,alat),(alon+2*deltaLon,alat+deltaLon*0.4),(alon+deltaLon,alat+deltaLon*0.4)]),
-    Polygon([(alon+2*deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+2*deltaLon,alat+deltaLon*0.4)]),
-    Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
-    ]})
-    scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6)
-    ax.annotate(str(int(accuracy/1000)),size = textsize,xy=(alon+deltaLon,alat+deltaLon*0.2), xytext=(-textsize*3/5,textsize/1.5), textcoords='offset points')
-    ax.annotate(str(int(2*accuracy/1000)),size = textsize,xy=(alon+2*deltaLon,alat+deltaLon*0.2), xytext=(-textsize*3/5,textsize/1.5), textcoords='offset points')
-    ax.annotate(str(int(4*accuracy/1000)),size = textsize,xy=(alon+4*deltaLon,alat+deltaLon*0.2), xytext=(-textsize*3/5,textsize/1.5), textcoords='offset points')
-    ax.annotate(str(int(8*accuracy/1000)),size = textsize,xy=(alon+8*deltaLon,alat+deltaLon*0.2), xytext=(-textsize*3/5,textsize/1.5), textcoords='offset points')
-    ax.annotate('KM',size = textsize,xy=(alon+8*deltaLon,alat+deltaLon*0.1), xytext=(textsize*2/5,-textsize/5), textcoords='offset points')
-    
+    if style == 1:
+        scale = gpd.GeoDataFrame({'color':[(0,0,0),(1,1,1),(0,0,0),(1,1,1)],'geometry':
+        [Polygon([(alon,alat),(alon+deltaLon,alat),(alon+deltaLon,alat+deltaLon*0.4),(alon,alat+deltaLon*0.4)]),
+        Polygon([(alon+deltaLon,alat),(alon+2*deltaLon,alat),(alon+2*deltaLon,alat+deltaLon*0.4),(alon+deltaLon,alat+deltaLon*0.4)]),
+        Polygon([(alon+2*deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+2*deltaLon,alat+deltaLon*0.4)]),
+        Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
+        ]})
+        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6)
+
+        if (unit == 'KM')|(unit == 'km'):
+            ax.text(alon+1*deltaLon,alat+deltaLon*0.5,str(int(1*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+2*deltaLon,alat+deltaLon*0.5,str(int(2*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+4*deltaLon,alat+deltaLon*0.5,str(int(4*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8*deltaLon,alat+deltaLon*0.5,str(int(8*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8.5*deltaLon,alat+deltaLon*0.5,unit,color = textcolor,fontsize = textsize,ha = 'left',va = 'top')
+        if (unit == 'M')|(unit == 'm'):
+            ax.text(alon+1*deltaLon,alat+deltaLon*0.5,str(int(1*accuracy)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+2*deltaLon,alat+deltaLon*0.5,str(int(2*accuracy)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+4*deltaLon,alat+deltaLon*0.5,str(int(4*accuracy)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8*deltaLon,alat+deltaLon*0.5,str(int(8*accuracy)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8.5*deltaLon,alat+deltaLon*0.5,unit,color = textcolor,fontsize = textsize,ha = 'left',va = 'top')
+    if style == 2:
+        scale = gpd.GeoDataFrame({'color':[(0,0,0),(1,1,1)],'geometry':
+        [Polygon([(alon+deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+deltaLon,alat+deltaLon*0.4)]),
+        Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
+        ]})
+        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6)
+
+        if (unit == 'KM')|(unit == 'km'):
+            ax.text(alon+4*deltaLon,alat+deltaLon*0.5,str(int(4*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8*deltaLon,alat+deltaLon*0.5,str(int(8*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8.5*deltaLon,alat+deltaLon*0.5,unit,color = textcolor,fontsize = textsize,ha = 'left',va = 'top')
+        if (unit == 'M')|(unit == 'm'):
+            ax.text(alon+4*deltaLon,alat+deltaLon*0.5,str(int(4*accuracy)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8*deltaLon,alat+deltaLon*0.5,str(int(8*accuracy)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+            ax.text(alon+8.5*deltaLon,alat+deltaLon*0.5,unit,color = textcolor,fontsize = textsize,ha = 'left',va = 'top')
+
+
     #加指北针
     deltaLon = compasssize*deltaLon
     alon = alon-deltaLon
@@ -190,4 +216,4 @@ def plotscale(ax,bounds,textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1
     [Polygon([[alon,alat],[alon,alat+deltaLon],[alon+1/2*deltaLon,alat-1/2*deltaLon]]),
     Polygon([[alon,alat],[alon,alat+deltaLon],[alon-1/2*deltaLon,alat-1/2*deltaLon]])]})
     compass.plot(ax= ax, edgecolor= (0,0,0,1),facecolor = compass['color'],lw = 0.6)
-    ax.annotate('N',size = textsize,xy=[alon,alat+deltaLon], xytext=(-textsize*2/5,textsize/2), textcoords='offset points')
+    ax.text(alon,alat+deltaLon,'N',color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
