@@ -121,7 +121,7 @@ def getImageCluster( lon_deg,lat_deg,   delta_long, delta_lat,zoom,style,printlo
     return Cluster
 
     
-def plot_map(plt,bounds,zoom,style==4,imgsavepath = 'C:\\',printlog = False,apikey = '',access_token = '',styleid = 'dark'):
+def plot_map(plt,bounds,zoom,style=4,imgsavepath = 'C:\\',printlog = False,apikey = '',access_token = '',styleid = 'dark'):
     '''
     bounds -- Set your plotting boundary [lon1,lat1,lon2,lat2] (wgs1984)
     zoom -- The zoom level of the map
