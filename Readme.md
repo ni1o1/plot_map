@@ -1,40 +1,49 @@
-# 更新 Update
-## 2020.3.35
-增加绘制指北针和比例尺的功能plotscale(ax)
-add the function plotscale, now you can plot the compass and scale on the map!
-
-## 2020.3.24
-可将下载的地图保存，下次使用时直接读取！  
-set the imgsavepath to save the tile map  
-imgsavepath -- Path to save the tile map so that you don't have to download again  
-
-## 2020.3.22
-绘图过程增加了timeout为6s，尝试次数10次，妈妈再也不用担心plot_map画图卡很久  
-add 6s timeout and maximun try 10 times  
-
 # plot_map
 
 plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制地理图形的时候，你可以用plot_map来添加地图底图  
-When you want to plot geo object using python geopandas or matplotlib.pyplot, you can use this module to generate map backgroud.  
 
-只需要用以下代码：  
-Just use the following code:  
+## 安装
 
-    plot_map(plt,bounds,zoom = 9,style = 1)
+    pip install plot-map
 
-你可以通过改变参数"style"和"styleid"来改变底图的风格样式  
-You can change your map style by changing the "style" and "styleid" in the function plot_map  
+## 使用方法
 
-	bounds -- Set your plotting boundary [lon1,lat1,lon2,lat2] (wgs1984)  
-	zoom -- The zoom level of the map  
-	style -- From 1 to 7 represent different map styles,1-6 is from openstreetmap and 7 is the mapbox    
-	styleid -- if style is set as 7(from mapbox), you can change the styleid here, "dark" or "light" or your own style  
-	imgsavepath -- Path to save the tile map so that you don't have to download again
-	printlog -- Show the log
+### 地图底图加载
 
-可以实现的效果：  
-example：  
-<img height="600" src="img/example.png">
+只需要用以下代码：   
 
-更多信息请看：  
-see more in the ipynb: Tutorial(Tutorial_of_plot_map.ipynb)
+    import plot_map
+    #设定显示范围
+    bounds = [lon1,lat1,lon2,lat2]  
+    plot_map.plot_map(plt,bounds,zoom = 12,style = 4)  
+
+参数
+
+| 参数        | 描述                                                         |
+| ----------- | ------------------------------------------------------------ |
+| bounds      | 底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标 |
+| zoom        | 底图的放大等级，越大越精细，加载的时间也就越久，一般单个城市大小的范围，这个参数选取12到16之间 |
+| style       | 地图底图的样式，可选1-7，1-6为openstreetmap，7是mapbox       |
+| imgsavepath | 瓦片地图储存路径，设置路径后，会把地图下载到本地的文件夹下，使用时也会优先搜索是否有已经下载的瓦片，默认的存放路径是C:\\ |
+| printlog    | 是否显示日志                                                 |
+
+### 绘制指北针和比例尺的功能plotscale
+
+为底图添加指北针和比例尺
+
+    plot_map.plotscale(ax,bounds = bounds,textsize = 10,compasssize = 1,accuracy = 2000,rect = [0.06,0.03])  
+
+参数
+
+| 参数        | 描述                                                         |
+| ----------- | ------------------------------------------------------------ |
+| bounds      | 底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标 |
+| textsize    | 标注文字大小                                                 |
+| compasssize | 标注的指北针大小                                             |
+| accuracy    | 标注比例尺的长度                                             |
+| unit        | 'KM','km','M','m' 比例尺的单位                               |
+| style       | 1或2，比例尺样式                                             |
+
+### 效果
+
+<img src="https://raw.githubusercontent.com/ni1o1/pygeo-tutorial/master/resource/metro-example.png" style="width:600px">
