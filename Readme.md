@@ -1,6 +1,7 @@
 # plot_map
 
 plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制地理图形的时候，你可以用plot_map来添加地图底图  
+现在plot_map工具中也加入了栅格化的方法，具体用法请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
 
 ## 安装
 
