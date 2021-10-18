@@ -49,7 +49,7 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 
 <img src="https://raw.githubusercontent.com/ni1o1/pygeo-tutorial/master/resource/metro-example.png" style="width:600px">
 
-### 栅格化（渔网）
+### 生成方形栅格渔网
 
 生成研究范围内的方形栅格  
 
@@ -73,6 +73,8 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 | grid      | 栅格的GeoDataFrame，其中LONCOL与LATCOL为栅格的编号，HBLON与HBLAT为栅格的中心点坐标 |
 | params    | 栅格参数，分布为(lonStart,latStart,deltaLon,deltaLat)栅格左下角坐标与单个栅格的经纬度长宽|
 
+
+
 ### GPS数据对应栅格编号
 
 输入数据的经纬度列与栅格参数，输出对应的栅格编号
@@ -84,6 +86,12 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 输入数据的栅格编号与栅格参数，输出对应的栅格中心点
 
     data['HBLON'],data['HBLAT'] = plot_map.grids_centre(data['LONCOL'],data['LATCOL'],params)
+
+### 栅格编号生成栅格的地理信息列
+
+输入数据的栅格编号与栅格参数，输出对应的地理信息列
+
+    data['geometry'] = plot_map.gridid_to_polygon(data['LONCOL'],data['LATCOL'],params)
 
 ### 火星坐标系互转
 
@@ -101,4 +109,14 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 输入起终点经纬度，获取距离（米），基于numpy列运算
     
     data['distance'] = plot_map.getdistance(data['Lng1'],data['Lat1'], data['Lng2'],data['Lat2'])  
+
+### 生成六边形渔网
+
+生成研究范围内的六边形渔网  
+
+    import plot_map
+    #设定范围
+    bounds = [lon1,lat1,lon2,lat2]
+    hexagon = plot_map.hexagon_grids(bounds,accuracy = 5000)
+
 
