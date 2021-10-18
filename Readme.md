@@ -43,7 +43,62 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 | accuracy    | 标注比例尺的长度                                             |
 | unit        | 'KM','km','M','m' 比例尺的单位                               |
 | style       | 1或2，比例尺样式                                             |
+| rect       | 比例尺在图中的大致位置，如[0.9,0.9]则在右上角                    |
 
 ### 效果
 
 <img src="https://raw.githubusercontent.com/ni1o1/pygeo-tutorial/master/resource/metro-example.png" style="width:600px">
+
+### 栅格化（渔网）
+
+生成研究范围内的方形栅格  
+
+    import plot_map
+    #设定范围
+    bounds = [lon1,lat1,lon2,lat2]
+    grid,params = plot_map.rect_grids(bounds,accuracy = 500)
+
+
+输入参数
+
+| 参数        | 描述                                                         |
+| ----------- | ------------------------------------------------------------ |
+| bounds      | 底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标 |
+| accuracy    | 栅格大小                                                 |
+
+输出
+
+| 参数        | 描述                                                         |
+| ----------- | ------------------------------------------------------------ |
+| grid      | 栅格的GeoDataFrame，其中LONCOL与LATCOL为栅格的编号，HBLON与HBLAT为栅格的中心点坐标 |
+| params    | 栅格参数，分布为(lonStart,latStart,deltaLon,deltaLat)栅格左下角坐标与单个栅格的经纬度长宽|
+
+### GPS数据对应栅格编号
+
+输入数据的经纬度列与栅格参数，输出对应的栅格编号
+
+    data['LONCOL'],data['LATCOL'] = plot_map.GPS_to_grids(data['Lng'],data['Lat'],params)
+
+### 栅格编号对应栅格中心点经纬度
+
+输入数据的栅格编号与栅格参数，输出对应的栅格中心点
+
+    data['HBLON'],data['HBLAT'] = plot_map.grids_centre(data['LONCOL'],data['LATCOL'],params)
+
+### 火星坐标系互转
+
+坐标互转，基于numpy列运算
+
+    data['Lng'],data['Lat'] = plot_map.wgs84tobd09(data['Lng'],data['Lat'])  
+    data['Lng'],data['Lat'] = plot_map.wgs84togcj02(data['Lng'],data['Lat'])  
+    data['Lng'],data['Lat'] = plot_map.gcj02tobd09(data['Lng'],data['Lat'])  
+    data['Lng'],data['Lat'] = plot_map.gcj02towgs84(data['Lng'],data['Lat'])  
+    data['Lng'],data['Lat'] = plot_map.bd09togcj02(data['Lng'],data['Lat'])  
+    data['Lng'],data['Lat'] = plot_map.bd09towgs84(data['Lng'],data['Lat'])  
+
+### 经纬度计算距离
+
+输入起终点经纬度，获取距离（米），基于numpy列运算
+    
+    data['distance'] = plot_map.getdistance(data['Lng1'],data['Lat1'], data['Lng2'],data['Lat2'])  
+
