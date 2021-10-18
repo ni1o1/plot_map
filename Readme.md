@@ -1,7 +1,7 @@
 # plot_map
 
 plot_map工具针对时空大数据处理而开发，目前有下面几个功能：
-1. 添加地图底图
+1. 添加地图底图：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
 2. 火星坐标转换
 3. 经纬度换算距离
 4. 栅格渔网划分：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
