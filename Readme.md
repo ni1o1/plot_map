@@ -1,7 +1,11 @@
 # plot_map
 
-plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制地理图形的时候，你可以用plot_map来添加地图底图  
-现在plot_map工具中也加入了栅格化的方法，具体用法请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
+plot_map工具针对时空大数据处理而开发，目前有下面几个功能：
+1. 添加地图底图
+2. 火星坐标转换
+3. 经纬度换算距离
+4. 栅格渔网划分：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
+5. 用KDTree算法匹配点与点、点与线的最近邻：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example-ckdnearest.ipynb)
 
 ## 安装
 
@@ -45,10 +49,6 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 | unit        | 'KM','km','M','m' 比例尺的单位                               |
 | style       | 1或2，比例尺样式                                             |
 | rect       | 比例尺在图中的大致位置，如[0.9,0.9]则在右上角                    |
-
-### 效果
-
-<img src="https://raw.githubusercontent.com/ni1o1/pygeo-tutorial/master/resource/metro-example.png" style="width:600px">
 
 ### 生成方形栅格渔网
 
