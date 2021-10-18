@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: plot-map
-Version: 0.2.1
+Version: 0.2.2
 Summary: A tool to add basemap in matplotlib
 Home-page: https://github.com/ni1o1/plot_map
 Author: Qing Yu
@@ -82,7 +82,12 @@ Description: # plot_map
         | grid      | 栅格的GeoDataFrame，其中LONCOL与LATCOL为栅格的编号，HBLON与HBLAT为栅格的中心点坐标 |
         | params    | 栅格参数，分布为(lonStart,latStart,deltaLon,deltaLat)栅格左下角坐标与单个栅格的经纬度长宽|
         
+        ### 栅格参数获取
         
+        输入经纬度范围bounds，输出栅格参数
+        
+            bounds = [113.75194,22.447837,114.624187,22.864748]
+            grid_params(bounds,accuracy = 500)
         
         ### GPS数据对应栅格编号
         

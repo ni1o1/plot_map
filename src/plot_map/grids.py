@@ -13,8 +13,6 @@ def rect_grids(bounds,accuracy = 500):
     lat1 = bounds[1]
     lon2 = bounds[2]
     lat2 = bounds[3]
-    #定义栅格大小，单位为米  
-    accuracy = 500;  
     #取得左下角的经纬度  
     latStart = min(lat1, lat2);  
     lonStart = min(lon1, lon2);  
@@ -62,6 +60,24 @@ def rect_grids(bounds,accuracy = 500):
     data['geometry'] = geometry_list  
     params = (lonStart,latStart,deltaLon,deltaLat)
     return data,params 
+
+def grid_params(bounds,accuracy = 500):
+    '''
+    输入经纬度范围bounds，输出栅格参数
+    '''
+    #划定栅格划分范围
+    lon1 = bounds[0]
+    lat1 = bounds[1]
+    lon2 = bounds[2]
+    lat2 = bounds[3]
+    #取得左下角的经纬度  
+    latStart = min(lat1, lat2);  
+    lonStart = min(lon1, lon2);  
+    #计算栅格的经纬度增加量大小▲Lon和▲Lat，地球半径取6371004米  
+    deltaLon = accuracy * 360 / (2 * math.pi * 6371004 * math.cos((lat1 + lat2) * math.pi / 360));  
+    deltaLat = accuracy * 360 / (2 * math.pi * 6371004);  
+    return (lonStart,latStart,deltaLon,deltaLat)
+
 def GPS_to_grids(lon,lat,params):
     '''
     输入GPS经纬度，输出栅格编号

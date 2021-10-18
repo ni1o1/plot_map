@@ -73,7 +73,12 @@ plot_map是一个基于matplotlib的工具，在用geopandas或者pyplot绘制�
 | grid      | 栅格的GeoDataFrame，其中LONCOL与LATCOL为栅格的编号，HBLON与HBLAT为栅格的中心点坐标 |
 | params    | 栅格参数，分布为(lonStart,latStart,deltaLon,deltaLat)栅格左下角坐标与单个栅格的经纬度长宽|
 
+### 栅格参数获取
 
+输入经纬度范围bounds，输出栅格参数
+
+    bounds = [113.75194,22.447837,114.624187,22.864748]
+    grid_params(bounds,accuracy = 500)
 
 ### GPS数据对应栅格编号
 
