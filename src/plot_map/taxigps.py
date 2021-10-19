@@ -4,16 +4,18 @@ from shapely.geometry import Polygon,Point
 from .grids import GPS_to_grids,grids_centre
 import math 
 import numpy as np
-def taxiod_agg(oddata,params,arrow = False,**kwargs):
+def odagg(oddata,params,col = ['slon','slat','elon','elat'],arrow = False,**kwargs):
     '''
-    输入OD数据（每一行数据是一个出租车出行），栅格化OD并集计后生成OD的GeoDataFrame
+    输入OD数据（每一行数据是一个出行），栅格化OD并集计后生成OD的GeoDataFrame
     oddata - 出租车OD数据（清洗好的）
+    col - 起终点列名
     params - 栅格化参数
     arrow - 生成的OD地理线型是否包含箭头
     '''
     #将起终点栅格化
-    oddata['SLONCOL'],oddata['SLATCOL'] = GPS_to_grids(oddata['slon'],oddata['slat'],params)
-    oddata['ELONCOL'],oddata['ELATCOL'] = GPS_to_grids(oddata['elon'],oddata['elat'],params)
+    [slon,slat,elon,elat]=col
+    oddata['SLONCOL'],oddata['SLATCOL'] = GPS_to_grids(oddata[slon],oddata[slat],params)
+    oddata['ELONCOL'],oddata['ELATCOL'] = GPS_to_grids(oddata[elon],oddata[elat],params)
     oddata['count'] = 1
     oddata_agg = oddata.groupby(['SLONCOL','SLATCOL','ELONCOL','ELATCOL'])['count'].count().reset_index()
     #生成起终点栅格中心点位置

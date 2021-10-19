@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: plot-map
-Version: 0.2.7
+Version: 0.2.8
 Summary: A tool to add basemap in matplotlib
 Home-page: https://github.com/ni1o1/plot_map
 Author: Qing Yu
@@ -150,8 +150,9 @@ Description: # plot_map
         ### OD线型生成
         输入OD数据（每一行数据是一个出租车出行），栅格化OD并集计后生成OD的GeoDataFrame
         
-            taxiod_agg(oddata,params,arrow = False,**kwargs)
+            odagg(oddata,params,col = ['slon','slat','elon','elat'],arrow = False,**kwargs):
             oddata - 出租车OD数据（清洗好的）
+            col - 起终点列名
             params - 栅格化参数
             arrow - 生成的OD地理线型是否包含箭头
         

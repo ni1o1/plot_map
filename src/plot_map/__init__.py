@@ -3,4 +3,4 @@ from .CoordinatesConverter import gcj02tobd09,bd09togcj02,wgs84togcj02,gcj02towg
 from .grids import *
 from .ckdnearest import *
 from .taxigps import *
-__version__ = '0.2.7'
+__version__ = '0.2.8'

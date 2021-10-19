@@ -141,7 +141,8 @@ plot_map工具针对时空大数据处理而开发，目前有下面几个功能
 ### OD线型生成
 输入OD数据（每一行数据是一个出租车出行），栅格化OD并集计后生成OD的GeoDataFrame
 
-    taxiod_agg(oddata,params,arrow = False,**kwargs)
+    odagg(oddata,params,col = ['slon','slat','elon','elat'],arrow = False,**kwargs):
     oddata - 出租车OD数据（清洗好的）
+    col - 起终点列名
     params - 栅格化参数
     arrow - 生成的OD地理线型是否包含箭头
