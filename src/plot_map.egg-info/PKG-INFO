@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: plot-map
-Version: 0.2.4
+Version: 0.2.5
 Summary: A tool to add basemap in matplotlib
 Home-page: https://github.com/ni1o1/plot_map
 Author: Qing Yu
@@ -10,7 +10,7 @@ Project-URL: Bug Tracker, https://github.com/ni1o1/plot_map/issues
 Description: # plot_map
         
         plot_map工具针对时空大数据处理而开发，目前有下面几个功能：
-        1. 添加地图底图
+        1. 添加地图底图：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
         2. 火星坐标转换
         3. 经纬度换算距离
         4. 栅格渔网划分：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)

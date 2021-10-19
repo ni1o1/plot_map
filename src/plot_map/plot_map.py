@@ -145,7 +145,8 @@ def plot_map(plt,bounds,zoom,style=4,imgsavepath = r'/Users/yuqing/Nutstore File
     x2,y2 = num2deg(x2+1, y2, zoom)
     plt.imshow(np.asarray(a),extent = (y1,y2,x1+0.00,x2+0.00))
 
-def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1,0.1],unit = "KM",style = 1):
+
+def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1,0.1],unit = "KM",style = 1,**kwargs):
     
     #栅格化代码
     import math
@@ -178,7 +179,7 @@ def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 
         Polygon([(alon+2*deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+2*deltaLon,alat+deltaLon*0.4)]),
         Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
         ]})
-        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6)
+        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6,**kwargs)
 
         if (unit == 'KM')|(unit == 'km'):
             ax.text(alon+1*deltaLon,alat+deltaLon*0.5,str(int(1*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
@@ -197,7 +198,7 @@ def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 
         [Polygon([(alon+deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+deltaLon,alat+deltaLon*0.4)]),
         Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
         ]})
-        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6)
+        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6,**kwargs)
 
         if (unit == 'KM')|(unit == 'km'):
             ax.text(alon+4*deltaLon,alat+deltaLon*0.5,str(int(4*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
@@ -215,5 +216,5 @@ def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 
     compass = gpd.GeoDataFrame({'color':[(0,0,0),(1,1,1)],'geometry':
     [Polygon([[alon,alat],[alon,alat+deltaLon],[alon+1/2*deltaLon,alat-1/2*deltaLon]]),
     Polygon([[alon,alat],[alon,alat+deltaLon],[alon-1/2*deltaLon,alat-1/2*deltaLon]])]})
-    compass.plot(ax= ax, edgecolor= (0,0,0,1),facecolor = compass['color'],lw = 0.6)
+    compass.plot(ax= ax, edgecolor= (0,0,0,1),facecolor = compass['color'],lw = 0.6,**kwargs)
     ax.text(alon,alat+deltaLon,'N',color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
