@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: plot-map
-Version: 0.2.5
+Version: 0.2.7
 Summary: A tool to add basemap in matplotlib
 Home-page: https://github.com/ni1o1/plot_map
 Author: Qing Yu
@@ -15,12 +15,13 @@ Description: # plot_map
         3. 经纬度换算距离
         4. 栅格渔网划分：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example.ipynb)
         5. 用KDTree算法匹配点与点、点与线的最近邻：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example-ckdnearest.ipynb)
+        6. 出租车GPS数据的OD提取：请看[这个示例](https://github.com/ni1o1/plot_map/blob/master/example/example-taxiod.ipynb)
         
         ## 安装
         
             pip install plot-map
         
-        ## 使用方法
+        ## 底图加载功能
         
         ### 地图底图加载
         
@@ -59,6 +60,7 @@ Description: # plot_map
         | style       | 1或2，比例尺样式                                             |
         | rect       | 比例尺在图中的大致位置，如[0.9,0.9]则在右上角                    |
         
+        ## 栅格化功能
         ### 生成方形栅格渔网
         
         生成研究范围内的方形栅格  
@@ -108,6 +110,17 @@ Description: # plot_map
         
             data['geometry'] = plot_map.gridid_to_polygon(data['LONCOL'],data['LATCOL'],params)
         
+        ### 生成六边形渔网
+        
+        生成研究范围内的六边形渔网  
+        
+            import plot_map
+            #设定范围
+            bounds = [lon1,lat1,lon2,lat2]
+            hexagon = plot_map.hexagon_grids(bounds,accuracy = 5000)
+        
+        
+        ## 坐标计算功能
         ### 火星坐标系互转
         
         坐标互转，基于numpy列运算
@@ -125,16 +138,22 @@ Description: # plot_map
             
             data['distance'] = plot_map.getdistance(data['Lng1'],data['Lat1'], data['Lng2'],data['Lat2'])  
         
-        ### 生成六边形渔网
         
-        生成研究范围内的六边形渔网  
+        ## 出租车OD处理
         
-            import plot_map
-            #设定范围
-            bounds = [lon1,lat1,lon2,lat2]
-            hexagon = plot_map.hexagon_grids(bounds,accuracy = 5000)
+        ### OD提取算法
+        输入出租车GPS数据,提取OD
         
+            taxigps_to_od(data,col = ['VehicleNum','Stime','Lng','Lat','OpenStatus'])
+            data - 出租车GPS数据（清洗好的）
+            col - 数据中各列列名，需要按顺序[车辆id，时间，经度，纬度，载客状态]
+        ### OD线型生成
+        输入OD数据（每一行数据是一个出租车出行），栅格化OD并集计后生成OD的GeoDataFrame
         
+            taxiod_agg(oddata,params,arrow = False,**kwargs)
+            oddata - 出租车OD数据（清洗好的）
+            params - 栅格化参数
+            arrow - 生成的OD地理线型是否包含箭头
         
 Platform: UNKNOWN
 Classifier: Environment :: Web Environment
