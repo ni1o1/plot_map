@@ -35,7 +35,7 @@ def odagg_grid(oddata,params,col = ['slon','slat','elon','elat'],arrow = False,*
 def odagg_shape(oddata,shape,col = ['slon','slat','elon','elat'],params = None,round_accuracy = 6,arrow = False,**kwargs):
     '''
     输入OD数据（每一行数据是一个出行）与shape数据，OD集计到小区，生成OD的GeoDataFrame
-    oddata - 出租车OD数据（清洗好的）
+    oddata - OD数据
     shape - 集计小区的GeoDataFrame
     col - 起终点列名
     params - 栅格化参数，如果传入，则先栅格化后以栅格中心点匹配小区，如果不传入，则直接以经纬度匹配。在数据量大时，用栅格化进行匹配速度会极大提升
