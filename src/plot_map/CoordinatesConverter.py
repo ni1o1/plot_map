@@ -14,8 +14,6 @@ def gcj02tobd09(lng, lat):
     :param lat:火星坐标纬度
     :return:
     """
-    lng = lng.astype(float)
-    lat = lat.astype(float)
     z = np.sqrt(lng * lng + lat * lat) + 0.00002 * np.sin(lat * x_pi)
     theta = np.arctan2(lat, lng) + 0.000003 * np.cos(lng * x_pi)
     bd_lng = z * np.cos(theta) + 0.0065
@@ -31,8 +29,6 @@ def bd09togcj02(bd_lon, bd_lat):
     :param bd_lon:百度坐标经度
     :return:转换后的坐标列表形式
     """
-    bd_lon = bd_lon.astype(float)
-    bd_lat = bd_lat.astype(float)
     x = bd_lon - 0.0065
     y = bd_lat - 0.006
     z = np.sqrt(x * x + y * y) - 0.00002 * np.sin(y * x_pi)
@@ -49,8 +45,6 @@ def wgs84togcj02(lng, lat):
     :param lat:WGS84坐标系的纬度
     :return:
     """
-    lng = lng.astype(float)
-    lat = lat.astype(float)
     dlat = transformlat(lng - 105.0, lat - 35.0)
     dlng = transformlng(lng - 105.0, lat - 35.0)
     radlat = lat / 180.0 * pi
@@ -71,8 +65,6 @@ def gcj02towgs84(lng, lat):
     :param lat:火星坐标系纬度
     :return:
     """
-    lng = lng.astype(float)
-    lat = lat.astype(float)
     dlat = transformlat(lng - 105.0, lat - 35.0)
     dlng = transformlng(lng - 105.0, lat - 35.0)
     radlat = lat / 180.0 * pi
@@ -86,15 +78,11 @@ def gcj02towgs84(lng, lat):
     return lng * 2 - mglng, lat * 2 - mglat
 
 def wgs84tobd09(lon,lat):
-    lon = lon.astype(float)
-    lat = lat.astype(float)
     lon,lat = wgs84togcj02(lon,lat)
     lon,lat = gcj02tobd09(lon,lat)
     return lon,lat
 
 def bd09towgs84(lon,lat):
-    lon = lon.astype(float)
-    lat = lat.astype(float)
     lon,lat = bd09togcj02(lon,lat)
     lon,lat = gcj02towgs84(lon,lat)
     return lon,lat
@@ -125,10 +113,6 @@ def transformlng(lng, lat):
 
 def getdistance(lon1, lat1, lon2, lat2): # 经度1，纬度1，经度2，纬度2 （十进制度数）输入为DataFrame的列
     # 将十进制度数转化为弧度
-    lon1 = lon1.astype(float)
-    lat1 = lat1.astype(float)
-    lon2 = lon2.astype(float)
-    lat2 = lat2.astype(float)
     lon1, lat1, lon2, lat2 = map(lambda r:r*pi/180, [lon1, lat1, lon2, lat2])
     dlon = lon2 - lon1 
     dlat = lat2 - lat1 
