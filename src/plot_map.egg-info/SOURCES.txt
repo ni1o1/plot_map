@@ -1,12 +1,7 @@
 README.md
 setup.py
-src/plot_map/CoordinatesConverter.py
 src/plot_map/__init__.py
-src/plot_map/ckdnearest.py
-src/plot_map/grids.py
-src/plot_map/odprocess.py
 src/plot_map/plot_map.py
-src/plot_map/taxigps.py
 src/plot_map.egg-info/PKG-INFO
 src/plot_map.egg-info/SOURCES.txt
 src/plot_map.egg-info/dependency_links.txt
