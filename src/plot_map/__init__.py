@@ -1,2 +1,2 @@
-from .plot_map import plot_map,plotscale
-__version__ = '0.3.0'
+from .plot_map import plot_map,plotscale,set_mapboxtoken,set_imgsavepath
+__version__ = '0.3.7'

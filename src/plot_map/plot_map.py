@@ -1,12 +1,62 @@
 
 import pandas as pd
 import numpy as np
-
 import math
-
 import urllib
 import io
 from PIL import Image
+import os
+import sys
+
+#检索文件
+def searchfile(filename):
+    fileroot = ''
+    for i in sys.path:
+        try:
+            if filename in os.listdir(i):
+                fileroot = i
+        except:
+            pass
+    if fileroot == '':
+        fileroot = sys.path[-1]
+    return fileroot+'/'+filename
+
+#写入
+def set_mapboxtoken(mapboxtoken):
+    filepath = searchfile('mapboxtoken.txt')
+    f = open(filepath,mode = 'w')
+    f.write(mapboxtoken)
+    f.close()
+    print('Success')
+    
+#读取
+def read_mapboxtoken():
+    filepath = searchfile('mapboxtoken.txt')
+    try:
+        f = open(filepath,mode = 'r')
+        mapboxtoken = f.readline()
+        f.close()
+    except:
+        raise Exception('Mapboxtoken not found, please use tbd.set_mapboxtoken() to set it first, see: https://transbigdata.readthedocs.io/en/latest/plot_map.html') 
+    return mapboxtoken
+
+#写入
+def set_imgsavepath(imgsavepath):
+    filepath = searchfile('imgsavepath.txt')
+    f = open(filepath,mode = 'w')
+    f.write(imgsavepath)
+    f.close()
+    print('Success')
+#读取
+def read_imgsavepath():
+    filepath = searchfile('imgsavepath.txt')
+    try:
+        f = open(filepath,mode = 'r')
+        imgsavepath = f.readline()
+        f.close()
+    except:
+        raise Exception('Map base map storage path not found, please use tbd.set_imgsavepath() to set it first, see: https://transbigdata.readthedocs.io/en/latest/plot_map.html') 
+    return imgsavepath
 
 def deg2num(lat_deg, lon_deg, zoom):
     lat_rad = math.radians(lat_deg)
@@ -22,31 +72,41 @@ def num2deg(xtile, ytile, zoom):
     lat_deg = math.degrees(lat_rad)
     return (lat_deg, lon_deg)
 
-
-
-def getImageCluster( lon_deg,lat_deg,   delta_long, delta_lat,zoom,style,printlog,imgsavepath,apikey = '',access_token = '',styleid = 'cjrewwj3l2dwt2tptkiu09scd'):
+def getImageCluster( lon_deg,lat_deg, delta_long, delta_lat,zoom,printlog,imgsavepath,style = 4,access_token = ''):
     '''
-    apikey - openstreetmap token
     access_token - mapbox token
     '''
-    if style == 1:
-        smurl = r'https://a.tile.thunderforest.com/cycle/{0}/{1}/{2}.png?apikey='+apikey
-    if style == 2:
-        smurl = r'https://a.tile.thunderforest.com/transport/{0}/{1}/{2}.png?apikey='+apikey
-    if style == 3:
-        smurl = r'https://tile-b.openstreetmap.fr/hot/{0}/{1}/{2}.png'
-    if style == 4:
-        smurl = r'https://tiles.wmflabs.org/bw-mapnik/{0}/{1}/{2}.png'
-    if style == 5:
-        smurl = r'http://a.tile.stamen.com/toner/{0}/{1}/{2}.png'
-    if style == 6:
-        smurl = r'http://c.tile.stamen.com/watercolor/{0}/{1}/{2}.png'
-    if style == 7:
-        if styleid == 'dark':
-            styleid = 'cjetnd20i1vbi2qqxbh0by7p8'
-        if styleid == 'light':
-            styleid = 'cjrewwj3l2dwt2tptkiu09scd'
+    if (style == 1 )|(style == 'streets' ):
+        styleid = 'ckwinzgw581od14mpyfhka6nk'
         smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 2 )|(style == 'outdoors' ):
+        styleid = 'ckwinx7aj4y4a15p7ftfwq9dn'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 3 )|(style == 'satellite' ):
+        styleid = 'cjv36cj9u4h1q1ftemjed4f2y'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 4 )|(style == 'light' ):
+        styleid = 'ckwfx658z4dpb14ocnz6tky9d'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 5 )|(style == 'dark' ):
+        styleid = 'cjetnd20i1vbi2qqxbh0by7p8'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 6 )|(style == 'light-ch' ):
+        styleid = 'ckj9bhq7s9mvj19mq3e3fye35'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 7 )|(style == 'ice creem' ):
+        styleid = 'cjv36iiz9243t1fo8mweb4z6r'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 8 )|(style == 'night' ):
+        styleid = 'ck2o3fyvy0dch1cp6j2pkz2dv'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 9 )|(style == 'terrain' ):
+        styleid = 'cjv36gyklf43q1fnuwibiuetl'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+    if (style == 10 )|(style == 'basic blue' ):
+        styleid = 'ckwio2ze12fgk15p2alr5a4xj'
+        smurl = r'https://api.mapbox.com/styles/v1/ni1o1/'+styleid+r'/tiles/256/{0}/{1}/{2}?&access_token='+access_token
+
     else:
         styleid = ''
     xmin, ymax =deg2num(lat_deg, lon_deg, zoom)
@@ -63,7 +123,8 @@ def getImageCluster( lon_deg,lat_deg,   delta_long, delta_lat,zoom,style,printlo
                         pass
                     else:
                         tile.save(imgsavepath+'tileimg/'+filename)
-                        print('figsaved:'+filename)
+                        if printlog:
+                            print('figsaved:'+imgsavepath+'tileimg/'+filename)
                 else:
                     os.mkdir(imgsavepath+'tileimg')
             except:
@@ -121,24 +182,38 @@ def getImageCluster( lon_deg,lat_deg,   delta_long, delta_lat,zoom,style,printlo
     return Cluster
 
     
-def plot_map(plt,bounds,zoom,style=4,imgsavepath = r'/Users/yuqing/Nutstore Files/我的坚果云/python_new/',printlog = False,apikey = '',access_token = '',styleid = 'dark'):
+def plot_map(plt,bounds,zoom = 'auto',style=4,printlog = False):
     '''
-    bounds -- Set your plotting boundary [lon1,lat1,lon2,lat2] (wgs1984)
-    zoom -- The zoom level of the map
-    style -- From 1 to 7 represent different map styles,1-6 is from openstreetmap and 7 is the mapbox
-    styleid -- if style is set as 7(from mapbox), you can change the styleid here, "dark" or "light" or your own style
-    imgsavepath -- Path to save the tile map so that you don't have to download again
+    Plot the basemap
+
+    Parameters
+    -------
+    plt : matplotlib.pyplot
+        Where to plot
+    bounds : List
+        The drawing boundary of the base map, [lon1,lat1,lon2,lat2] (WGS84 coordinate system), where lon1 and lat1 are the coordinates of the lower left corner and lon2 and lat2 are the coordinates of the upper right corner
+    zoom : number
+        The larger the magnification level of the base map, the longer the loading time. Generally, the range for a single city is between 12 and 16
+    printlog : bool
+        Show log
+    style : number
+        The style of map basemap can be 1-10, as follows
     '''
+    access_token = read_mapboxtoken()
+    imgsavepath = read_imgsavepath()
     try:
         import os
         os.listdir(imgsavepath)
     except:
         print('imgsavepath do not exist, your tile map will not save')
-    lon1= bounds[0]
+    lon1 = bounds[0]
     lat1 =  bounds[1]
     lon2 =  bounds[2]
     lat2 =  bounds[3]
-    a = getImageCluster(lon1, lat1, lon2-lon1,  lat2-lat1, zoom,style,printlog = printlog,imgsavepath = imgsavepath,apikey = apikey,access_token = access_token, styleid = styleid)
+    if zoom == 'auto':
+        zoom = 11-np.log(lon2-lon1)/np.log(2)
+    zoom = min(18,int(zoom+0.5))
+    a = getImageCluster(lon1, lat1, lon2-lon1,  lat2-lat1, zoom,style = style,printlog = printlog,imgsavepath = imgsavepath,access_token = access_token)
     x1, y1 =deg2num(lat1, lon1, zoom)
     x2, y2 =deg2num(lat2, lon2, zoom)
     x1,y1 = num2deg(x1, y1+1, zoom)
@@ -147,7 +222,26 @@ def plot_map(plt,bounds,zoom,style=4,imgsavepath = r'/Users/yuqing/Nutstore File
 
 
 def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 'auto',rect=[0.1,0.1],unit = "KM",style = 1,**kwargs):
-    
+    '''
+    Add compass and scale for a map
+
+    Parameters
+    -------
+    bounds : List
+        The drawing boundary of the base map, [lon1,lat1,lon2,lat2] (WGS84 coordinate system), where lon1 and lat1 are the coordinates of the lower left corner and lon2 and lat2 are the coordinates of the upper right corner
+    textsize : number
+        size of the text
+    compasssize : number
+        size of the compass
+    accuracy : number
+        Length of scale bar (m)
+    unit : str
+        ‘KM’,’km’,’M’,’m’, the scale units
+    style : number
+        1 or 2, the style of the scale
+    rect : List
+        The approximate position of the scale bar in the figure, such as [0.9,0.9], is in the upper right corner
+    '''
     #栅格化代码
     import math
 
@@ -179,7 +273,7 @@ def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 
         Polygon([(alon+2*deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+2*deltaLon,alat+deltaLon*0.4)]),
         Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
         ]})
-        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6,**kwargs)
+        scale.plot(ax = ax,edgecolor= textcolor,facecolor = scale['color'],lw = 0.6,**kwargs)
 
         if (unit == 'KM')|(unit == 'km'):
             ax.text(alon+1*deltaLon,alat+deltaLon*0.5,str(int(1*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
@@ -198,7 +292,7 @@ def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 
         [Polygon([(alon+deltaLon,alat),(alon+4*deltaLon,alat),(alon+4*deltaLon,alat+deltaLon*0.4),(alon+deltaLon,alat+deltaLon*0.4)]),
         Polygon([(alon+4*deltaLon,alat),(alon+8*deltaLon,alat),(alon+8*deltaLon,alat+deltaLon*0.4),(alon+4*deltaLon,alat+deltaLon*0.4)])
         ]})
-        scale.plot(ax = ax,edgecolor= (0,0,0,1),facecolor = scale['color'],lw = 0.6,**kwargs)
+        scale.plot(ax = ax,edgecolor= textcolor,facecolor = scale['color'],lw = 0.6,**kwargs)
 
         if (unit == 'KM')|(unit == 'km'):
             ax.text(alon+4*deltaLon,alat+deltaLon*0.5,str(int(4*accuracy/1000)),color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
@@ -216,5 +310,6 @@ def plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accuracy = 
     compass = gpd.GeoDataFrame({'color':[(0,0,0),(1,1,1)],'geometry':
     [Polygon([[alon,alat],[alon,alat+deltaLon],[alon+1/2*deltaLon,alat-1/2*deltaLon]]),
     Polygon([[alon,alat],[alon,alat+deltaLon],[alon-1/2*deltaLon,alat-1/2*deltaLon]])]})
-    compass.plot(ax= ax, edgecolor= (0,0,0,1),facecolor = compass['color'],lw = 0.6,**kwargs)
+    compass.plot(ax= ax, edgecolor= textcolor,facecolor = compass['color'],lw = 0.6,**kwargs)
     ax.text(alon,alat+deltaLon,'N',color = textcolor,fontsize = textsize,ha = 'center',va = 'bottom')
+

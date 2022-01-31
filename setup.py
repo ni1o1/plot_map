@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
  
 setuptools.setup(
     name="plot_map",
-    version="0.3.0",
+    version="0.3.7",
     author="Qing Yu",
     author_email="qingyu0815@foxmail.com",
     description="A tool to add basemap in matplotlib",
@@ -31,7 +31,7 @@ setuptools.setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.8",
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
+package_dir={'plot_map': 'src/plot_map'},
+    packages=['plot_map'],
     python_requires=">=3.6",
 )

@@ -1,5 +1,10 @@
-README.md
+LICENSE
+Readme.md
 setup.py
+.ipynb_checkpoints/Tutorial_of_plot_map-checkpoint.ipynb
+.ipynb_checkpoints/plot_map包修理-checkpoint.ipynb
+dist/.DS_Store
+src/.DS_Store
 src/plot_map/__init__.py
 src/plot_map/plot_map.py
 src/plot_map.egg-info/PKG-INFO
