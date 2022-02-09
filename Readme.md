@@ -27,42 +27,50 @@ plot_map包依赖于geopandas和matplotlib，如果你已经安装了这些依�
 
 如果你已经得到了mapbox token，可以用以下代码为TransBigData设置mapbox token(只需要设置一次，后面重新打开python也不需要再重新设置了)：
 
-    import transbigdata as tbd
-    #用下面代码设置你的mapboxtoken
-    tbd.set_mapboxtoken('pk.eyxxxxxxxxxx.xxxxxxxxx')#必须在里面设置你申请的token，直接复制此行代码无效！
+```python
+import plot_map
+#用下面代码设置你的mapboxtoken
+plot_map.set_mapboxtoken('pk.eyxxxxxxxxxx.xxxxxxxxx')#必须在里面设置你申请的token，直接复制此行代码无效！
+```
 
 另外还需要设置一个地图底图的存储位置，下一次显示同一个位置时，地图会从本地读取加载。
 
-    #设置你的地图底图存储路径
-    #如果你是linux或者mac系统，路径是这么写，注意最后有一个反斜杠
-    tbd.set_imgsavepath(r'/Users/xxxx/xxxx/')
-    #如果是windows系统，路径这么写，最后注意要两个斜杠以防转义
-    tbd.set_imgsavepath(r'E:\pythonscript\xxx\\')
+```python
+#设置你的地图底图存储路径
+#如果你是linux或者mac系统，路径是这么写，注意最后有一个反斜杠
+plot_map.set_imgsavepath(r'/Users/xxxx/xxxx/')
+#如果是windows系统，路径这么写，最后注意要两个斜杠以防转义
+plot_map.set_imgsavepath(r'E:\pythonscript\xxx\\')
+```
 
 设置好后，下次绘制底图时，会在你设置的路径下创建一个tileimg文件夹，底图都放在里面  
 尝试一下下面的代码，看看能否成功绘制底图
 
-    #定义显示范围范围
-    bounds = [113.6,22.4,114.8,22.9]
-    #创建图框
-    import matplotlib.pyplot as plt
-    fig =plt.figure(1,(8,8),dpi=250)
-    ax =plt.subplot(111)
-    plt.sca(ax)
-    #添加地图底图
-    tbd.plot_map(plt,bounds,zoom = 11,style = 4)
-    #添加比例尺和指北针
-    tbd.plotscale(ax,bounds = bounds,textsize = 10,compasssize = 1,accuracy = 2000,rect = [0.06,0.03],zorder = 10)
-    plt.axis('off')
-    plt.xlim(bounds[0],bounds[2])
-    plt.ylim(bounds[1],bounds[3])
-    plt.show()
+```python
+#定义显示范围范围
+bounds = [113.6,22.4,114.8,22.9]
+#创建图框
+import matplotlib.pyplot as plt
+fig =plt.figure(1,(8,8),dpi=250)
+ax =plt.subplot(111)
+plt.sca(ax)
+#添加地图底图
+plot_map.plot_map(plt,bounds,zoom = 11,style = 4)
+#添加比例尺和指北针
+plot_map.plotscale(ax,bounds = bounds,textsize = 10,compasssize = 1,accuracy = 2000,rect = [0.06,0.03],zorder = 10)
+plt.axis('off')
+plt.xlim(bounds[0],bounds[2])
+plt.ylim(bounds[1],bounds[3])
+plt.show()
+```
 
 ![plot_map绘图结果](image/output_6_0.png)
 
 ### 地图底图加载
 
+```python
 plot_map.plot_map(plt,bounds,zoom='auto',style=4,printlog = False,styleid = 'dark')
+```
 
 添加地图底图
 
@@ -169,4 +177,6 @@ rect : List
 
 使用方法：
 
-    plot_map.plotscale(ax,bounds = bounds,textsize = 10,compasssize = 1,accuracy = 2000,rect = [0.06,0.03])  
+```python
+plot_map.plotscale(ax,bounds = bounds,textsize = 10,compasssize = 1,accuracy = 2000,rect = [0.06,0.03])  
+```
