@@ -76,14 +76,14 @@ plot_map.plot_map(plt,bounds,zoom='auto',style=4,printlog = False,styleid = 'dar
 
 **输入**
 
-bounds : List
-    底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标 
-zoom : number
-    底图的放大等级，默认为auto自动选取。越大越精细，加载的时间也就越久，一般单个城市大小的范围，这个参数选取12到16之间 
-printlog : bool
-    是否显示日志                                                
-style : number
-    地图底图的样式，可选1-10，对应分别如下（需要plot_map包在0.3.3版本以上）   
+bounds : List  
+    底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标   
+zoom : number  
+    底图的放大等级，默认为auto自动选取。越大越精细，加载的时间也就越久，一般单个城市大小的范围，这个参数选取12到16之间   
+printlog : bool  
+    是否显示日志                                                  
+style : number  
+    地图底图的样式，可选1-10，对应分别如下（需要plot_map包在0.3.3版本以上）     
 
 底图样式1：streets
 ----------------------------------------
@@ -160,19 +160,19 @@ plot_map.plotscale(ax,bounds,textcolor = 'k',textsize = 8,compasssize = 1,accura
 
 **输入**
 
-bounds : List
-    底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标 
-textsize : number
-    标注文字大小                                                 
-compasssize : number
+bounds : List  
+    底图的绘图边界，[lon1,lat1,lon2,lat2] (WGS84坐标系) 其中，lon1,lat1是左下角坐标，lon2,lat2是右上角坐标  
+textsize : number  
+    标注文字大小                                                  
+compasssize : number  
     标注的指北针大小                                             
-accuracy : number
+accuracy : number  
     标注比例尺的长度（米）                                         
-unit : str
+unit : str  
     'KM','km','M','m' 比例尺的单位                               
-style : number
+style : number  
     1或2，比例尺样式                                             
-rect : List
+rect : List  
     比例尺在图中的大致位置，如[0.9,0.9]则在右上角                    
 
 使用方法：
